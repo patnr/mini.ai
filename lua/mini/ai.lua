@@ -581,6 +581,13 @@ MiniAi.find_textobject = function(ai_type, id, opts)
   opts = vim.tbl_deep_extend('force', H.get_default_opts(), opts or {})
   H.validate_search_method(opts.search_method)
 
+  -- Save/load previous tobj
+  if id == "." then
+     ai_type, id = unpack(H.previous_tobj)
+  else
+    H.previous_tobj = {ai_type, id}
+  end
+
   -- Get textobject specification
   local tobj_spec = H.get_textobject_spec(id, { ai_type, id, opts })
   if tobj_spec == nil then return end
