@@ -1250,7 +1250,7 @@ H.expr_textobject = function(mode, ai_type, opts)
   if tobj_id == nil then return mode == 'o' and '<Esc>' or '' end
 
   -- Possibly fall back to builtin `a`/`i` textobjects
-  if H.is_disabled() or not H.is_valid_textobject_id(tobj_id) then
+  if H.is_disabled() or not MiniAi.is_valid_textobject_id(tobj_id) then
     local mappings = H.get_config().mappings
     local main_key = mappings[ai_type == 'a' and 'around' or 'inside']
     local res = main_key .. tobj_id
@@ -1350,7 +1350,7 @@ H.get_textobject_spec = function(id, args)
   return spec
 end
 
-H.is_valid_textobject_id = function(id)
+MiniAi.is_valid_textobject_id = function(id)
   local spec = H.make_textobject_table()[id]
   return type(spec) == 'table' or vim.is_callable(spec)
 end
